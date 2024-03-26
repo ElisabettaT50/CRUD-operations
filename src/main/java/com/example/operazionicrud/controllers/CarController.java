@@ -26,8 +26,8 @@ public class CarController {
         return ResponseEntity.ok().body(carSevice.addCar(car));
     }
 
-    @GetMapping("/getcarbyid")
-    public ResponseEntity<CarEntity> getCarList(@RequestParam Long id) {
+    @GetMapping("/getcarbyid/{id}")
+    public ResponseEntity<CarEntity> getCarList(@PathVariable Long id) {
         Optional<CarEntity> optionalCar = carSevice.findCarByIdIfExist(id);
         if(optionalCar.isEmpty()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -36,8 +36,8 @@ public class CarController {
         }
     }
 
-    @PostMapping("/updatecarbyid")
-    public ResponseEntity<CarEntity> updateCarById(@RequestParam Long id,
+    @PostMapping("/updatecarbyid/{id}")
+    public ResponseEntity<CarEntity> updateCarById(@PathVariable Long id,
                                                    @RequestBody CarEntity newCar) {
         Optional<CarEntity> updatedCar = carSevice.updateCarTypeByIdIfExist(id, newCar);
         if(updatedCar.isEmpty()) {
